@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    
+    
+<h1 id="bigOne"></h1>
+<input type="submit" onclick="showData()">
+
+
+<script src="https://www.gstatic.com/firebasejs/4.3.1/firebase.js"></script>
+<script>
+  // Initialize Firebase
+  var config = {
+    apiKey: "AIzaSyAbYAN6QtIxHCAJj5c4e4jw1gxFMGUro3w",
+    authDomain: "webdemo01-b7cef.firebaseapp.com",
+    databaseURL: "https://webdemo01-b7cef.firebaseio.com",
+    projectId: "webdemo01-b7cef",
+    storageBucket: "webdemo01-b7cef.appspot.com",
+    messagingSenderId: "37434408334"
+  };
+  firebase.initializeApp(config);
+
+  var database = firebase.database();
+var root = firebase.database().ref();
+
+  function addChild(){
+    
+    var adaNameRef = firebase.database().ref();
+    adaNameRef.child('users/name').set("sorawit");
+
+  }
+function writeUserData(){
+    document.write("ddd");
+    firebase.database().ref().set({
+        username: "name",
+        email: "email",
+        profile_picture: "imageUrl"
+    });
+
+  
+}
+
+
+var rootRef = firebase.database().ref();
+var urlRef = rootRef.child("users");
+urlRef.once("value", function(snapshot) {
+  snapshot.forEach(function(child) {
+      document.write(child.key+": "+child.val());
+    console.log(child.key+": "+child.val());
+  });
+});
+
+
+// rootUrl === "https://sample-app.firebaseio.com/".
+
+// Calling toString() at a deeper Firebase reference returns the URL of that
+// deep path within the Database:
+function showData(){
+    var rootRef = firebase.database().ref();
+var rootUrl = rootRef.toString();
+    var adaRef = rootRef.child('users/ada');
+var adaURL = adaRef.toString();
+document.write(adaURL);
+
+}
+
+
+</script>
+
+</body>
+</html>
